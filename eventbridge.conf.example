@@ -1,0 +1,44 @@
+# Eventbridge Configuration
+#
+# To activate a plugin, it must be declared as a section with all required configuration parameters.
+# To deactivate a plugin, just comment the corresponding configuration section.
+#
+#
+# Any environment variables used in the config file will be expanded on application start. 
+# String variables must be enclosed in quotes (e.g., "$ENV_VAR"), while numbers and booleans 
+# should be declared unquoted.
+
+###############################################################################
+#                            AGENT                                            #
+###############################################################################
+[agent]
+  ## Rancher API Access Key
+  rancher_access_key = "<REPLACE WITH ACCESS KEY>"
+  ## Rancher API Secret Key
+  rancher_secret_key = "<REPLACE WITH SECRET KEY>"
+  ## Rancher API URL
+  rancher_url = "https://<REPLACE WITH SERVER NAME:PORT>/v1"
+
+  ## Events are queued per plugin and processed synchronously.
+  ## If the event queue reaches it's limit, old events are overwritten first.
+  event_queue_limit = 50
+
+  ## TCP port used by the health check server
+  health_check_port = 10241
+
+  ## Loglevel (debug|info|warn|error)
+  loglevel = "info"
+
+###############################################################################
+#                            PLUGINS                                          #
+###############################################################################
+
+[slack]
+  ## Incoming Webhook URL (required)
+  webhookurl = "https://hooks.slack.com/services/<REPLACE WITH TOKEN>"
+  ## Slack channel (optional)
+  # channel = "#devops"
+  ## Icon Emoji (optional)
+  # icon = ":mega:"
+  ## User name (optional)
+  # username = "rancher-eventbridge"
