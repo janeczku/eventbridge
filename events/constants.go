@@ -20,6 +20,9 @@ const (
 	// Service specific health states
 	StateDegraded    HealthState = "degraded"
 	StateStartedOnce HealthState = "started-once"
+
+	// Unknown
+	StateUnknown HealthState = "n/a"
 )
 
 const (

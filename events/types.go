@@ -11,7 +11,6 @@ type Stack struct {
 	Description string
 	State       InstanceState
 	HealthState HealthState
-	Removed     bool
 }
 
 type Service struct {
@@ -23,11 +22,9 @@ type Service struct {
 	Scale       int
 	State       InstanceState
 	HealthState HealthState
-	Removed     bool
 	Metadata    map[string]interface{}
 	Fqdn        string
 	Vip         string
-	CreateIndex int
 }
 
 type Container struct {
@@ -40,7 +37,6 @@ type Container struct {
 	StackName        string
 	State            InstanceState
 	HealthState      HealthState
-	Removed          bool
 	Environment      map[string]string
 	Labels           map[string]string
 	Metadata         map[string]interface{}
@@ -48,7 +44,6 @@ type Container struct {
 	Ports            []string
 	ImageUUID        string
 	HostID           string
-	CreateIndex      int
 }
 
 type Host struct {
@@ -58,7 +53,6 @@ type Host struct {
 	Description     string
 	State           InstanceState
 	AgentState      string
-	Removed         bool
 	Labels          map[string]string
 	Hostname        string
 	PublicEndpoints []Endpoints

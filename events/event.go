@@ -48,7 +48,7 @@ func New(id string, kind EventKind, resourceData map[string]interface{}) (Event,
 	return ev, nil
 }
 
-func (ev Event) State() InstanceState {
+func (ev Event) GetState() InstanceState {
 	var state InstanceState
 	switch ev.Kind {
 	case ContainerEvent:
@@ -63,7 +63,7 @@ func (ev Event) State() InstanceState {
 	return state
 }
 
-func (ev Event) HealthState() HealthState {
+func (ev Event) GetHealthState() HealthState {
 	var healthState HealthState
 	switch ev.Kind {
 	case ContainerEvent:
@@ -73,10 +73,15 @@ func (ev Event) HealthState() HealthState {
 	case StackEvent:
 		healthState = ev.StackData.HealthState
 	}
+
+	if len(healthState) == 0 {
+		healthState = StateUnknown
+	}
+
 	return healthState
 }
 
-func (ev Event) Name() string {
+func (ev Event) GetName() string {
 	var name string
 	switch ev.Kind {
 	case ContainerEvent:
@@ -92,7 +97,8 @@ func (ev Event) Name() string {
 }
 
 func (ev Event) String() string {
-	return fmt.Sprintf("[%s] %s '%s' is now in the '%s' state", ev.Timestamp.Format("2006-01-02 15:04:05"), ev.Kind, ev.Name(), ev.State())
+	return fmt.Sprintf("[%s] %s '%s' is now in the '%s' state (health: '%s')",
+		ev.Timestamp.Format("2006-01-02 15:04:05"), ev.Kind, ev.GetName(), ev.GetState(), ev.GetHealthState())
 }
 
 func parseStackServiceNames(container *Container) {
